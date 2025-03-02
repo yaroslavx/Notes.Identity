@@ -36,6 +36,8 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.LoginPath = "/Auth/Login";
     config.LogoutPath = "/Auth/Logout";
 });
+
+builder.Services.AddControllersWithViews();
     
 var app = builder.Build();
 
@@ -54,7 +56,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-app.MapGet("/", () => "Hello World!");
-
+app.MapDefaultControllerRoute();
 app.UseIdentityServer();
 app.Run(); 
