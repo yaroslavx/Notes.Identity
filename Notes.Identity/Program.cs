@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Notes.Identity;
 using Notes.Identity.Data;
 using Notes.Identity.Models;
@@ -56,6 +57,12 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "Styles")),
+    RequestPath = "/Styles"
+});
 app.MapDefaultControllerRoute();
 app.UseIdentityServer();
 app.Run(); 
